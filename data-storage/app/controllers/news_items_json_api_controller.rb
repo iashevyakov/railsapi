@@ -1,16 +1,12 @@
 class NewsItemsJsonApiController < ApplicationController
-  
+  include NewsItemsJsonApiHelper
+
   def index
 
-  	if (params[:search])
-	  search = params[:search]
-	  key = "%#{search}%"
-	  @news_items = NewsItem.where('title LIKE :search OR author LIKE :search OR description LIKE :search OR url LIKE :search', search: key)
-	else
-	  @news_items = NewsItem.all
-	end
+	@news_items = filter_news NewsItem.all, params[:search]
+	@news_items = paginate @news_items, params[:page]
 
-	render json: @news_items
+	render json: @news_items, adapter: :json_api
 
   end
 end

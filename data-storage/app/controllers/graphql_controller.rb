@@ -2,15 +2,11 @@ class GraphqlController < ApplicationController
   def execute
     variables = ensure_hash(params[:variables])
     query = params[:query]
-    puts query
-    puts variables
     operation_name = params[:operationName]
     context = {
       # Query context goes here, for example:
       # current_user: current_user,
     }
-    puts context
-    puts operation_name
     result = DataStorageSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result
   rescue => e

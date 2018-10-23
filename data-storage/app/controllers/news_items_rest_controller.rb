@@ -1,22 +1,11 @@
 class NewsItemsRestController < ApplicationController
-  
-  # def default_serializer_options
-  #   {
-  #     adapter: nil
-  #   }
-  # end
+  include NewsItemsJsonApiHelper
 
   def index
 
-  	if (params[:search])
-	  search = params[:search]
-	  key = "%#{search}%"
-	  @news_items = NewsItem.where('title LIKE :search OR author LIKE :search OR content LIKE :search OR description LIKE :search OR url LIKE :search OR url_to_image LIKE :search', search: key)
-	else
-	  @news_items = NewsItem.all
-	end
+    @news_items = filter_news NewsItem.all, params[:search]
 
-	render json: @news_items, adapter: nil
+    render json: @news_items, adapter: nil
 
   end
 end
