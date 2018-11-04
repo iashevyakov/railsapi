@@ -1,0 +1,15 @@
+
+<div align="center">
+<h1>News</h1>
+<%= form_tag("/news_rest", method: :get) do %>
+  <%= label_tag(:search, "Search for:") %>
+  <%= text_field_tag(:search, params[:search]) %>
+  <%= submit_tag("Search") %>
+<% end %>
+</div>
+
+<%- @news.each do |nn| %>
+    <h1><%= nn["title"] %></h1>
+    <h2><%= nn["author"] %></h2>
+    <article><%= nn["description"] %></article>
+<% end %> 
