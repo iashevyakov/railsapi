@@ -1,0 +1,6 @@
+= searchdata
+
+Describe your project here
+
+:include:searchdata.rdoc
+

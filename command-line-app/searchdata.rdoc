@@ -1,0 +1,5 @@
+= searchdata
+
+Generate this with
+    searchdata _doc
+After you have described your command line interface
