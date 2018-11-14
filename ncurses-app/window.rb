@@ -42,9 +42,18 @@ begin
     end
   end
 
-
-  while((ch = scr.getch()) != Ncurses::KEY_EXIT) do
+  #27 - Esc
+  while((ch = scr.getch()) != 27) do
     case(ch)
+
+    when Ncurses::KEY_BACKSPACE
+      Ncurses::Form.unpost_form(form)
+      Ncurses::Form.post_form(form)
+      Ncurses.mvprintw(10, 20, "Enter a keyword : ")
+      search = search[0..-2]
+      search.each_char {|c| Ncurses::Form.form_driver(form, c.ord)}
+      scr.refresh()
+
     when 10
       Ncurses::Form.unpost_form(form)
       scr.refresh()
@@ -76,5 +85,3 @@ ensure
   Ncurses.nl()
   Ncurses.endwin()
 end
-
-puts search
